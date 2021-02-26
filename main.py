@@ -6,8 +6,10 @@ pdf_reader = PyPDF2.PdfFileReader(book)
 pages = pdf_reader.numPages
 
 speaker = pyttsx3.init()
-print(pages)
+print(f'total pages: {pages}')
 
+
+# change the voice speed
 def voice_speed():
     print(
         """
@@ -21,13 +23,13 @@ def voice_speed():
     while True:
         option = int(input('chosen option: '))
 
-        if option == 1:
+        if option == 1: # slow
             speaker.setProperty('rate', 120)
             get_page()
-        elif option == 2:
+        elif option == 2: # normal
             get_page()
-        elif option == 3:
-            speaker.setProperty('rate', 210)
+        elif option == 3: # fast
+            speaker.setProperty('rate', 220)
             get_page()
         else:
             print('please choose one of the options (1, 2 or 3)')
@@ -37,6 +39,7 @@ def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
 
+# get the page and call the reader function
 def get_page():
     cls()
     for page in range(0, pages):
@@ -46,10 +49,13 @@ def get_page():
         reader(page_text)
 
 
+# function to read the book
 def reader(page_text):
     speaker.say(page_text)
     speaker.runAndWait()
 
+
+# when the program runs it shows a menu to the user
 def menu():
     print(
         """
@@ -63,13 +69,12 @@ def menu():
     while True:
         option = int(input('chosen option: '))
         if option == 1:
-            # cls()
             get_page()
         elif option == 2:
-            # cls()
             voice_speed()
         else:
             print('please choose one of the two options (1 or 2)')
             continue
 
-menu()
+
+menu() # call the menu
